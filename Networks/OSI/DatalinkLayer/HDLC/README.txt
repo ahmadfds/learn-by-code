@@ -1,0 +1,2 @@
+High Level Data Link Protocol (HDLC) − HDLC is based upon SDLC and provides both unreliable service and reliable service.
+It is a bit – oriented protocol that is applicable for both point – to – point and multipoint communications.

@@ -1,0 +1,2 @@
+Serial Line Interface Protocol (SLIP) − This is a simple protocol for transmitting data units between an Internet
+service provider (ISP) and home user over a dial-up link. It does not provide error detection / correction facilities.
