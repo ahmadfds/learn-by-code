@@ -22,56 +22,10 @@ interface ClientFacer
 
 
 
-class Developer implements Worker, Coder {
-    public function takeBreak()
-    {
-        // TODO: Implement takeBreak() method.
-    }
+abstract class Developer implements Worker, Coder {
 
-    public function getPaid()
-    {
-        // TODO: Implement getPaid() method.
-    }
-
-    public function code()
-    {
-        // TODO: Implement code() method.
-    }
-
-    public function callToClient()
-    {
-        // TODO: Implement callToClient() method.
-    }
-
-    public function attendMeetings()
-    {
-        // TODO: Implement attendMeetings() method.
-    }
 }
 
-class Manager implements Worker, ClientFacer {
-    public function takeBreak()
-    {
-        // TODO: Implement takeBreak() method.
-    }
+abstract class Manager implements Worker, ClientFacer {
 
-    public function getPaid()
-    {
-        // TODO: Implement getPaid() method.
-    }
-
-    public function code()
-    {
-        // TODO: Implement code() method.
-    }
-
-    public function callToClient()
-    {
-        // TODO: Implement callToClient() method.
-    }
-
-    public function attendMeetings()
-    {
-        // TODO: Implement attendMeetings() method.
-    }
 }
