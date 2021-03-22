@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__.'/Logger.php';
+require __DIR__.'/../../Logger.php';
 
 $config = [
     'logger_type' => 'stdout'
@@ -15,15 +15,19 @@ $loggerMapper = [
     'file' => new FileLogger('/tmp/test_logger')
 ];
 
-function createLogger():ILogger
+class LoggerFactory
 {
-    global $config, $loggerMapper;
-    $loggerType = $config['logger_type'];
-    return $loggerMapper[$loggerType];
+    function createLogger():ILogger
+    {
+        global $config, $loggerMapper;
+        $loggerType = $config['logger_type'];
+        return $loggerMapper[$loggerType];
+    }
 }
 
 
-$logger = createLogger();
+
+$logger = (new LoggerFactory())->createLogger();
 $logger->error('Sample output message');
 $logger->warning('Sample output message');
 $logger->notice('Sample output message');

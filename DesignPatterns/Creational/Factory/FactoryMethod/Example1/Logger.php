@@ -5,45 +5,20 @@
  */
 
 
-
-interface ILogger
+interface ILogWriter
 {
-    public function error(string $message);
-    public function warning(string $message);
-    public function notice(string $message);
-    public function info(string $message);
+    public function write(string $output);
 }
 
-
-class StdoutLogger implements ILogger
+class StdoutLogWriter implements ILogWriter
 {
-
-    public function error(string $message)
+    public function write(string $output)
     {
-        $logTime = date('Y-m-d H:i:s');
-        echo "[$logTime] ERROR: {$message}\n";
-    }
-
-    public function warning(string $message)
-    {
-        $logTime = date('Y-m-d H:i:s');
-        echo "[$logTime] WARNING: {$message}\n";
-    }
-
-    public function notice(string $message)
-    {
-        $logTime = date('Y-m-d H:i:s');
-        echo "[$logTime] NOTICE: {$message}\n";
-    }
-
-    public function info(string $message)
-    {
-        $logTime = date('Y-m-d H:i:s');
-        echo "[$logTime] WARNING: {$message}\n";
+        echo $output;
     }
 }
 
-class FileLogger implements ILogger
+class FileLogWriter implements ILogWriter
 {
 
     private $filePath;
@@ -55,36 +30,71 @@ class FileLogger implements ILogger
         $this->fp = fopen($filePath, 'a');
     }
 
-    public function error(string $message)
+    public function write(string $output)
     {
-        $logTime = date('Y-m-d H:i:s');
-        $message = "[$logTime] ERROR: {$message}\n";
-        fwrite($this->fp, $message);
-    }
-
-    public function warning(string $message)
-    {
-        $logTime = date('Y-m-d H:i:s');
-        $message = "[$logTime] WARNING: {$message}\n";
-        fwrite($this->fp, $message);
-    }
-
-    public function notice(string $message)
-    {
-        $logTime = date('Y-m-d H:i:s');
-        $message = "[$logTime] NOTICE: {$message}\n";
-        fwrite($this->fp, $message);
-    }
-
-    public function info(string $message)
-    {
-        $logTime = date('Y-m-d H:i:s');
-        $message = "[$logTime] INFO: {$message}\n";
-        fwrite($this->fp, $message);
+        fwrite($this->fp, $output);
     }
 
     public function __destruct()
     {
         fclose($this->fp);
+    }
+}
+
+
+
+interface ILogger
+{
+    public function getLogWriter():ILogWriter;
+    public function error(string $message);
+    public function warning(string $message);
+    public function notice(string $message);
+    public function info(string $message);
+}
+
+abstract class Logger implements ILogger
+{
+    public function error(string $message)
+    {
+        $logTime = date('Y-m-d H:i:s');
+        $this->getLogWriter()->write("[$logTime] ERROR: {$message}\n");
+    }
+
+    public function warning(string $message)
+    {
+        $logTime = date('Y-m-d H:i:s');
+        $this->getLogWriter()->write("[$logTime] WARNING: {$message}\n");
+    }
+
+    public function notice(string $message)
+    {
+        $logTime = date('Y-m-d H:i:s');
+        $this->getLogWriter()->write("[$logTime] NOTICE: {$message}\n");
+    }
+
+    public function info(string $message)
+    {
+        $logTime = date('Y-m-d H:i:s');
+        $this->getLogWriter()->write("[$logTime] WARNING: {$message}\n");
+    }
+}
+
+
+class StdoutLogger extends Logger
+{
+
+    public function getLogWriter(): ILogWriter
+    {
+        return new StdoutLogWriter();
+    }
+}
+
+
+class FileLogger extends Logger
+{
+
+    public function getLogWriter(): ILogWriter
+    {
+        return new FileLogWriter('/tmp/factory_method.log');
     }
 }

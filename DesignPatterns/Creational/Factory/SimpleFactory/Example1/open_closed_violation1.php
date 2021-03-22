@@ -6,17 +6,22 @@
  * a new logger type, then you have to modify the method "createLogger" code
  */
 
-require __DIR__.'/Logger.php';
+require __DIR__.'/../../Logger.php';
 
-function createLogger(string $loggerType):ILogger
+class LoggerFactory
 {
-    switch ($loggerType) {
-        case 'stdout':
-            return new StdoutLogger();
-        case 'file':
-            return new FileLogger('/tmp/test_logger');
+    function createLogger(string $loggerType):ILogger
+    {
+        switch ($loggerType) {
+            case 'stdout':
+                return new StdoutLogger();
+            case 'file':
+                return new FileLogger('/tmp/test_logger');
+        }
     }
 }
+
+
 
 
 /**
@@ -25,7 +30,7 @@ function createLogger(string $loggerType):ILogger
  * then you have to change every "createLogger" argument value in every place you wrote, which gonna cause another
  * open/closed violation
  */
-$logger = createLogger('stdout');
+$logger = (new LoggerFactory())->createLogger('stdout');
 //$logger = createLogger('file');
 $logger->error('Sample output message');
 $logger->warning('Sample output message');
