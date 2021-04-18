@@ -16,7 +16,7 @@ $person2 = new Person();
 // make them fighters
 //
 $fighter1 = new Swordsman(new ArmorWearer($person1));
-$fighter2 = new Spearman(new ArmorWearer($person2));
+$fighter2 = new Spearman(new ArmorWearer(new ArmorWearer(new ArmorWearer($person2))));
 
 
 
