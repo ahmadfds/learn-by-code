@@ -15,13 +15,11 @@ class UserProxy implements IUser
 
     public function getId()
     {
-        $this->assertUserInitiated();
         return $this->user->getId();
     }
 
     public function setId(int $value)
     {
-        $this->assertUserInitiated();
         $this->user->setId($value);
     }
 
