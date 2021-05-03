@@ -1,0 +1,1 @@
+The multiton pattern allows for the controlled creation of multiple instances, which it manages through the use of a map.
