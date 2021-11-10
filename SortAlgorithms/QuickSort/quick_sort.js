@@ -1,24 +1,24 @@
-function quickSort(arr, low, heigh) {
-    if(low < heigh) {
-        let pi = partition(arr, low, heigh);
+function quickSort(arr, fromInx, toInx) {
+    if(fromInx < toInx) {
+        let pivotInx = movePivotToNewIndex(arr, fromInx, toInx);
 
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, heigh);
+        quickSort(arr, fromInx, pivotInx - 1);
+        quickSort(arr, pivotInx + 1, toInx);
     }
 }
 
-function partition(arr, low, heigh) {
-    console.log('partitioning => ', (heigh-low) + 1, arr);
-    let pivotInx = heigh;
-    let i = low - 1;
-    for(let j=low; j<heigh; j++) {
-        if(arr[j] < arr[pivotInx]) {
-            swap(arr, ++i, j);
-            //console.log('i='+i, 'j='+j, arr);
+function movePivotToNewIndex(arr, fromInx, toInx) {
+    console.log('partitioning => ', (toInx-fromInx) + 1, arr);
+    let pivotInx = toInx;
+    let projectedPivotInx = fromInx - 1;
+    for(let seeker=fromInx; seeker < toInx; seeker++) {
+        if(arr[seeker] < arr[pivotInx]) {
+            swap(arr, ++projectedPivotInx, seeker);
+            //console.log('projectedPivotInx='+projectedPivotInx, 'seeker='+seeker, arr);
         }
     }
-    swap(arr, ++i, pivotInx);
-    return i;
+    swap(arr, ++projectedPivotInx, pivotInx);
+    return projectedPivotInx;
 }
 
 function swap(arr, i, j) {
