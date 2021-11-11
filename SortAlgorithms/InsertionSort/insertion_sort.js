@@ -1,18 +1,22 @@
+//
+// push min values to array's first
+// Time complexity O(n^2)
+//
 function insertionSort(arr) {
     let i, key, j;
-    for (i = 1; i < arr.length; i++)
-    {
+    for (i = 1; i < arr.length; i++) {
+        // moving i and j together
         key = arr[i];
         j = i - 1;
-        while (j >= 0 && arr[j] > key)
-        {
+
+        // if j index was bigger than i index then start shifting
+        while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
             j = j - 1;
-            console.log(arr);
         }
+
+        // put the key in the last shifted place
         arr[j + 1] = key;
-        console.log(arr);
-        console.log("=================================");
     }
 }
 
